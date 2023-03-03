@@ -1,0 +1,54 @@
+package tp03;
+public class ArbolBinario<T> {
+private NodoBinario<T> raiz;
+public ArbolBinario() {
+this.raiz = null;
+}
+public ArbolBinario(T dato) {
+this.raiz = new NodoBinario<T>(dato);
+}
+private ArbolBinario(NodoBinario<T> nodo) {
+this.raiz = nodo;
+}
+private NodoBinario<T> getRaiz() {
+return this.raiz;
+}
+public T getDatoRaiz() {
+return (this.raiz==null)? null:this.raiz.getDato();
+}
+public ArbolBinario<T> getHijoIzquierdo() {
+return new ArbolBinario<T>(this.raiz.getHijoIzquierdo());
+}
+public void agregarHijoIzquierdo(ArbolBinario<T> hijo){
+this.raiz.setHijoIzquierdo(hijo.getRaiz());
+}
+..............................................
+}
+package tp03;
+public class NodoBinario<T> {
+private T dato;
+private NodoBinario<T> hijoIzquierdo;
+private NodoBinario<T> hijoDerecho;
+NodoBinario(T dato){
+this.dato = dato;
+}
+public T getDato(){
+return this.dato;
+}
+public NodoBinario<T> getHijoIzquierdo(){
+return this.hijoIzquierdo;
+}
+public NodoBinario<T> getHijoDerecho(){
+return this.hijoDerecho;
+}
+public void setDato(T dato){
+this.dato = dato;
+}
+public void setHijoIzquierdo(NodoBinario<T> hijoIzq){
+this.hijoIzquierdo = hijoIzq;
+}
+public void setHijoDerecho(NodoBinario<T>
+hijoDer){
+this.hijoDerecho = hijoDer;
+}
+}
