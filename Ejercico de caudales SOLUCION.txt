@@ -1,0 +1,28 @@
+public class ArbolGeneral<T> (){ 
+	//metodos de la clase arbol
+
+	public float[] caudalMinimo(float n){ 
+				
+		
+		float[] caudMin = {99999.0};
+		calcularCaudalMinimo(n ,caudMin);
+		return caudMin[0];		
+		
+	}	
+	public void calcularCaudalMinimo(float litros ,float[] caudMin){
+		// este metodo lo separaría en 2 partes, primero evaluar si estoy en una hoja para poder actualizar el minimo de ser necesario
+		// de no ser asi preguntaria por el else y llamaria recursivamente
+		if (this.getDatoRaiz() != null){
+			if (this.getHijos().tamanio() == 0){ // es una hoja 
+				if (caudMin[0]> acum) caudMin[0] = listros;			
+			}else{
+				listaEnlazadaGenerica<ArbolGeneral<float>> hijos = this.getHijos();
+				hijos.comenzar();
+				while (! hijos.fin()){
+					hijos.proximo().calcularCaudalMinimo(litros/hijos.tamanio(),caudMin);
+				}
+			}
+		}
+	}
+	
+}
