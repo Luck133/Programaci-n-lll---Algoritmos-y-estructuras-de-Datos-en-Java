@@ -1,0 +1,58 @@
+INTEGRANTES:
+Luciano Molinero
+Lautaro Osácar
+
+package tp07.ejercicio5;
+import grafos.Arista;
+import grafos.Grafo;
+import grafos.Vertice;
+import tp03.ejercicio8.ListaGenerica;
+
+public class RecorridoMasSeguro {
+	private Grafo<String> bosque;
+	
+	public ListaGenerica<String> recorridoMasSeguro(){
+		boolean[] marca = new boolean[bosque.listaDeVertices().tamanio()];
+		
+		ListaGenerica<String> lis = new ListaEnlazadaGenerica<String>();  //instanciarlo como lista no apuntando a null
+;
+		ListaGenerica<String> res = null;
+		
+		Vertice<String> inicial = this.buscarCasa(bosque, "CasaCaperucita");
+		this.dfs(inicial.posicion(), this.bosque, marca, lis, res); //this.dfs(inicial, marca, lis, res); para el otro caso sería el tiempo/costo que son los 
+		return lis;   //se retorna "res" mo lis
+	}
+	
+	// private void dfs(Vertice<String> v, boolean[] marca, ListaGenerica<String> lis,ListaGenerica<String> res){
+	private void dfs(int i, Grafo<String> bosque, boolean[] marca, ListaGenerica<String> lis,ListaGenerica<String> res){
+		marca[v.posicion()] = true;
+		
+		if (v.dato()=="CasaAbuelita"){
+			res = lis.clonar();
+			return res;
+		}
+		ListaGenerica<Arista<String>> ady = this.listaDeAdyacentes(v); //porque el grafo se puede llamar por this
+		ady.comenzar();
+		while(!ady.fin()){
+			Arista<String> arista = ady.proximo();
+			int proxInd = arista.verticeDestino().posicion();
+			if (!marca[proxInd] && arista.peso() < 5){
+				lis.agregarFinal(arista.verticeDestino().dato());
+				this.dfs(proxInd, bosque, marca, lis,res);
+				lis.eliminar(arista.verticeDestino().dato());
+			}
+		}
+	}
+	
+	private Vertice<String> buscarCasa(Grafo<String> bosque, String casa){
+		ListaGenerica<Vertice<String>> vertices = bosque.listaDeVertices();
+		vertices.comenzar();
+		while (!vertices.fin()){
+			Vertice<String> v = vertices.proximo();
+			if (v.dato().equals(casa))
+			return v;
+		}
+		return null;
+	}
+}
+ // se puede mandar como "this" al grafo bosque, en vez de pasarlo por parámetro
